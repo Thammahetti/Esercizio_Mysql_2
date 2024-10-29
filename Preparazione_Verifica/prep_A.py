@@ -7,18 +7,12 @@ mydb = mysql.connector.connect(
 )
 
 
-mydb1 = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="",
-  database="Animali"
-)
 
 mycursor = mydb.cursor()
 
-mycursor.execute("CREATE DATABASE Animali")
+mycursor.execute("CREATE DATABASE if not exists Animali")
 
+mycursor.execute("USE Animali")
 
-mycursor = mydb1.cursor()
+mycursor.execute("CREATE TABLE if not exists Mammiferi (id INT PRIMARY KEY, nome_Proprio VARCHAR(255), razzi VARCHAR(255), Peso INT, eta INT)")
 
-mycursor.execute("CREATE TABLE Mammiferi (name VARCHAR(255), address VARCHAR(255))")
