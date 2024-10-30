@@ -35,10 +35,23 @@ while sil == True:
     for x in myresult:
       print(x)
   elif x== 3:
-      print("Inserisci un nuovo animale")
+      deldata= input("Inserisci ID del Animale per eliminarlo: ")
+      mycursor.execute("DELETE FROM Mammiferi WHERE id='" + deldata+ "';")
+      print("Eliminato Correttamente")
   elif x==4:
-    print("Inserisci un nuovo animale")
+    iddata= input("Inserisci ID del Animale che vuoi modificare: ")
+    nomeProprio = input("Inserisci Nome Del Animale:  ")
+    razzaAnimali = input("Inserisci la Razza:  ")
+    pesoAnimale = int(input("Inserisci il peso: "))
+    etaAnimale = int(input("Inserisci l'eta: "))
+    
+    sql = "UPDATE Mammiferi SET  nome_Proprio= %s,razzi = %s, Peso = %s , eta = %s WHERE id = %s"
+    val = (nomeProprio, razzaAnimali,pesoAnimale, etaAnimale , iddata)
+    print("Modificato Correttamente")
+
+    mycursor.execute(sql, val)
   elif x>4 or x<1:
     print("Numero non valido. Riprova")
+    notUsed= input("Premi Enter per continuare ") 
     
-notUsed= input("Premi Enter per continuare ") 
+
