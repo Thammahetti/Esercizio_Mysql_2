@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import mysql.connector
 import json
 import pymysql
@@ -24,7 +24,7 @@ def fetch_table_data_Panda(razza):
     rows = mycursor.fetchall()
     return rows
 
-def fetch_table_data_Peso(peso):
+def fetch_table_data_Peso(peso10):
     query = "SELECT * FROM Mammiferi WHERE pes = %s"
     mycursor.execute(query, (razza,))
     rows = mycursor.fetchall()
@@ -37,11 +37,12 @@ def index():
     return jsonify({'Mammiferi':data})  
 
 
-@app.route("/<razza>")
+@app.route("/<razza>",  methods = ['POST'])
 def Panda(razza):
-    data = fetch_table_data_Panda(razza)
-    return jsonify({razza:data})  
-
+    data = request.json
+    #data = fetch_table_data_Panda(razza)
+    return jsonify(data["Peso"])  
+#
 
 if __name__ == "__main__":
     app.run()
